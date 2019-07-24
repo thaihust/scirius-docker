@@ -2,7 +2,7 @@
 
 cd /opt/selks/scirius/
 
-KIBANA_LOADED="/sciriusdata/kibana_dashboards"
+KIBANA_LOADED="/opt/kibana-dashboards"
 
 reset_dashboards() {
 	for I in $(seq 0 20); do

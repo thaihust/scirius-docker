@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:stretch-backports
 
 ENV VERSION 3.1.0
 RUN apt-get update
@@ -10,7 +10,7 @@ RUN apt-key add stamus.key
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y suricata
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y -t stretch-backports npm
-RUN wget https://github.com/StamusNetworks/scirius/archive/scirius-${VERSION}.tar.gz
+COPY scirius-3.1.0.tar.gz /tmp/
 RUN mkdir -p /opt/selks/sciriusdata
 WORKDIR /opt/selks
 RUN tar zxf /tmp/scirius-${VERSION}.tar.gz
@@ -24,7 +24,7 @@ ADD django/scirius.sh /opt/selks/bin/
 RUN chmod ugo+x /opt/selks/bin/scirius.sh
 ADD kibana/reset_dashboards.sh /opt/selks/bin/
 RUN chmod ugo+x /opt/selks/bin/reset_dashboards.sh
-RUN git clone https://github.com/StamusNetworks/KTS.git  /opt/kibana-dashboards/
+RUN git clone https://github.com/StamusNetworks/KTS6.git /opt/kibana-dashboards/
 RUN pip install elasticsearch-curator
 RUN npm install -g npm@latest webpack@3.11
 RUN npm install
